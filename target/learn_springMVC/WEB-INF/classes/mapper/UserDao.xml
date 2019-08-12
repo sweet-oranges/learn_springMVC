@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.orange.dao.UserDao">
+    <!--auto generated Code-->
+    <resultMap id="AllColumnMap" type="com.orange.entity.User">
+        <result column="id" property="id"/>
+        <result column="username" property="userName"/>
+        <result column="password" property="password"/>
+        <result column="age" property="age"/>
+    </resultMap>
+
+    <!--auto generated Code-->
+    <sql id="all_column">
+        `id`,
+        `username`,
+        `password`,
+        `age`
+    </sql>
+
+    <!--auto generated Code-->
+    <insert id="insert" useGeneratedKeys="true" keyProperty="pojo.id">
+        INSERT INTO user (
+            `id`,
+            `username`,
+            `password`,
+            `age`
+        ) VALUES (
+            #{pojo.id},
+            #{pojo.userName},
+            #{pojo.password},
+            #{pojo.age}
+        )
+    </insert>
+
+    <!--auto generated Code-->
+    <insert id="insertSelective" useGeneratedKeys="true" keyProperty="pojo.id">
+        INSERT INTO user
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="pojo.id!=null"> `id`,</if>
+            <if test="pojo.userName!=null"> `username`,</if>
+            <if test="pojo.password!=null"> `password`,</if>
+            <if test="pojo.age!=null"> `age`,</if>
+        </trim>
+        VALUES
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="pojo.id!=null">#{pojo.id},</if>
+            <if test="pojo.userName!=null">#{pojo.userName},</if>
+            <if test="pojo.password!=null">#{pojo.password},</if>
+            <if test="pojo.age!=null">#{pojo.age},</if>
+        </trim>
+    </insert>
+
+    <!--auto generated Code-->
+    <insert id="insertList">
+        INSERT INTO user (
+        <include refid="all_column"/>
+        )VALUES
+        <foreach collection="pojos" item="pojo" index="index" separator=",">
+            (
+            #{pojo.id},
+            #{pojo.userName},
+            #{pojo.password},
+            #{pojo.age}
+            )
+        </foreach>
+    </insert>
+
+    <!--auto generated Code-->
+    <update id="update">
+        UPDATE user
+        <set>
+            <if test="pojo.id != null"> `id` = #{pojo.id}, </if>
+            <if test="pojo.userName != null"> `username` = #{pojo.userName}, </if>
+            <if test="pojo.password != null"> `password` = #{pojo.password}, </if>
+            <if test="pojo.age != null"> `age` = #{pojo.age} </if>
+        </set>
+        WHERE id = #{pojo.id}
+    </update>
+
+    <select id="getUser" resultType="com.orange.entity.User" parameterType="java.lang.Integer">
+        SELECT * FROM user where id =#{id}
+    </select>
+</mapper>
+
